@@ -15,10 +15,14 @@ RSS_FEEDS = {'bbc': 'http://feeds.bbci.co.uk/news/rss.xml',
              }
 
 
-@app.route('/')
+# domyślnie jest tylko GET
+# dodajemy POST i możemy korzystać z obu metod;
+# z której skorzystamy, zostanie określone w formularzu html;
+# korzystamy z post, dlatego wybieramy form z globalnego kontekstu request
+# na wypadek braku pustego parametru mamy przypisanie domyślnej wartości
+@app.route('/', methods=['GET', 'POST'])
 def get_news():
-    # args jest dla metody GET
-    query = request.args.get('publication')
+    query = request.form.get('publication')
 
     # istnienie argumentu publication i obecności na liście RSS
     if not query or query.lower() not in RSS_FEEDS:

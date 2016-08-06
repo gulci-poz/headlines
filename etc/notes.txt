@@ -1,0 +1,17 @@
+do testowania kodu używamy nowej gałęzi,
+wcześniej robimy add, commit i push w głównej gałęzi;
+
+możemy później zrobić merge z główną gałęzią
+lub porzucić ten kod na rzecz głównej gałęzi
+
+git branch post-requests
+git checkout post-requests
+
+przed powrotem do głównej gałęzi robimy sobie add, commit i push
+
+git checkout master
+
+push nie jest konieczny w każdym wypadku, możemy go zrobić jednorazowo,
+po zakończeniu pracy
+
+shift + f6 - rename (z refactor)
