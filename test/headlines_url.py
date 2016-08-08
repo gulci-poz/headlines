@@ -28,7 +28,7 @@ def get_news(publication='bbc'):
     # możemy przekazać do szablonu całą listę słowników z feedami
     # odrobinę logiki (iterowanie po elementach) przerzucamy do szablonu
     # do klucza słownika w szablonie odwołujemy się za pomocą kropki
-    return render_template('test/home_post.html', articles=feed['entries'])
+    return render_template('home.html', articles=feed['entries'])
 
     # first_article = feed['entries'][0]
     # zamiast first_article['title'] używamy get()

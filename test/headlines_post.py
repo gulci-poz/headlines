@@ -31,7 +31,7 @@ def get_news():
         publication = query.lower()
 
     feed = feedparser.parse(RSS_FEEDS[publication])
-    return render_template('test/home_post.html', articles=feed['entries'])
+    return render_template('home.html', articles=feed['entries'])
 
 
 @app.route('/favicon.ico')
