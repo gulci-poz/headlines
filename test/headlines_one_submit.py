@@ -8,6 +8,11 @@ import os
 from urllib.parse import quote
 from urllib.request import urlopen
 
+# w oróżnieniu od wersji książkowej mamy jeden submit dla bu pól
+# dodatkowo wpisanie tylko jednego wyszukiwania nie przywraca
+# domyślnego wyniku dla drugiego
+# każde nowe wyszukiwanie w dowolnym polu jest zapamiętywane jako nowe domyślne
+
 app = Flask(__name__)
 
 RSS_FEEDS = {'bbc': 'http://feeds.bbci.co.uk/news/rss.xml',
@@ -17,8 +22,8 @@ RSS_FEEDS = {'bbc': 'http://feeds.bbci.co.uk/news/rss.xml',
              'epoznan': 'http://epoznan.pl/rss.php',
              }
 
-DEAFAULTS = {'publication': 'bbc',
-             'city': 'London,UK'
+DEAFAULTS = {'publication': 'epoznan',
+             'city': 'Poznan,PL'
              }
 
 WEATHER_URL = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=04eae95ad58ff3d6b45089b57a134b32'
@@ -33,6 +38,8 @@ def get_home():
     city = request.args.get('city')
     if not city:
         city = DEAFAULTS['city']
+    else:
+        DEAFAULTS['city'] = city
     weather = get_weather(city)
     return render_template('home.html', articles=articles, weather=weather)
 
@@ -49,6 +56,7 @@ def get_news(query):
         publication = DEAFAULTS['publication']
     else:
         publication = query.lower()
+        DEAFAULTS['publication'] = publication
     feed = feedparser.parse(RSS_FEEDS[publication])
     return feed['entries']
 

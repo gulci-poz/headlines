@@ -17,24 +17,21 @@ RSS_FEEDS = {'bbc': 'http://feeds.bbci.co.uk/news/rss.xml',
              'epoznan': 'http://epoznan.pl/rss.php',
              }
 
-DEAFAULTS = {'publication': 'bbc',
-             'city': 'London,UK'
-             }
-
-WEATHER_URL = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=04eae95ad58ff3d6b45089b57a134b32'
-
 
 @app.route('/')
-def get_home():
-    publication = request.args.get('publication')
-    if not publication:
-        publication = DEAFAULTS['publication']
-    articles = get_news(publication)
-    city = request.args.get('city')
-    if not city:
-        city = DEAFAULTS['city']
-    weather = get_weather(city)
-    return render_template('home.html', articles=articles, weather=weather)
+def get_news():
+    # args jest dla metody GET
+    query = request.args.get('publication')
+
+    # istnienie argumentu publication i obecności na liście RSS
+    if not query or query.lower() not in RSS_FEEDS:
+        publication = 'bbc'
+    else:
+        publication = query.lower()
+
+    feed = feedparser.parse(RSS_FEEDS[publication])
+    weather = get_weather('Poznan,PL')
+    return render_template('home.html', articles=feed['entries'], weather=weather)
 
 
 @app.route('/favicon.ico')
@@ -44,27 +41,25 @@ def favicon():
                                mimetype='image/vnd.microsoft.icon')
 
 
-def get_news(query):
-    if not query or query.lower() not in RSS_FEEDS:
-        publication = DEAFAULTS['publication']
-    else:
-        publication = query.lower()
-    feed = feedparser.parse(RSS_FEEDS[publication])
-    return feed['entries']
-
-
 def get_weather(query):
+    # lokalizację będziemy mieli w {}
+    # np. Poznan,PL
+    api_url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=04eae95ad58ff3d6b45089b57a134b32'
+    # lokalizację odzieramy ze spacji i przecinka
     query = quote(query)
-    url = WEATHER_URL.format(query)
+    # formatujemy url, podstawiając przygotowaną lokalizację
+    url = api_url.format(query)
+    # ściągamy dane z przygotowanego urla, dostaniemy obiekt HTTPResponse w postaci bajtów
     data = urlopen(url).read().decode('utf-8')
+    # parsujemy dane do json
     parsed = json.loads(data)
+    # musimy zainicjować zmienną tutaj, jeśli zrobimy to w if, to zmienna będzie lokalna dla segmentu if
     weather = None
 
     if parsed.get('weather'):
         weather = {'description': parsed['weather'][0]['description'],
                    'temperature': parsed['main']['temp'],
-                   'city': parsed['name'],
-                   'country': parsed['sys']['country']}
+                   'city': parsed['name']}
 
     return weather
 

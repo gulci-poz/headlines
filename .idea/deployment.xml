@@ -7,6 +7,13 @@
           <mappings>
             <mapping deploy="/headlines" local="$PROJECT_DIR$" web="/" />
           </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/.idea" />
+            <excludedPath local="true" path="$PROJECT_DIR$/test" />
+            <excludedPath local="true" path="$PROJECT_DIR$/.gitignore" />
+            <excludedPath local="true" path="$PROJECT_DIR$/etc/notes.txt" />
+            <excludedPath local="true" path="$PROJECT_DIR$/passenger_wsgi.py" />
+          </excludedPaths>
         </serverdata>
       </paths>
       <paths name="mydevil">
@@ -14,6 +21,13 @@
           <mappings>
             <mapping deploy="/domains/gulci.usermd.net/public_python" local="$PROJECT_DIR$" web="/" />
           </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/.gitignore" />
+            <excludedPath local="true" path="$PROJECT_DIR$/.idea" />
+            <excludedPath local="true" path="$PROJECT_DIR$/etc/notes.txt" />
+            <excludedPath local="true" path="$PROJECT_DIR$/test" />
+            <excludedPath local="true" path="$PROJECT_DIR$/headlines.wsgi" />
+          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>
