@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="cf1d0211-f05e-4405-9c5b-61b45a18a78f" name="mydevil" url="http://gulci.usermd.net">
+        <fileTransfer host="s9.mydevil.net" port="22" rootFolder="/usr/home/gulci" accessType="SFTP" password="dffadfc5dff5df99df93df92df9bdf99" username="gulci">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="d12fbb1a-cdb2-473b-9baa-fa21f06f9381" name="apache" url="http://192.168.56.104">
+        <fileTransfer host="127.0.0.1" port="2226" rootFolder="/var/www" accessType="SFTP" password="df95dffadfc5dff5df99df93df92df9bdf99df8b" username="gulci">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="2226" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
